@@ -1,4 +1,4 @@
-﻿@model WebECommerce.Models.Company
+﻿@model ECommerce.Models.Company
 
 @{
     ViewBag.Title = "Details";
@@ -35,19 +35,35 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Address)
+            @Html.DisplayNameFor(model => model.FirstName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Address)
+            @Html.DisplayFor(model => model.FirstName)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Phone)
+            @Html.DisplayNameFor(model => model.LastName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Phone)
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNumber)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNumber)
         </dd>
 
         <dt>
@@ -59,27 +75,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Mobilel02)
+            @Html.DisplayNameFor(model => model.Mobile02)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Mobilel02)
+            @Html.DisplayFor(model => model.Mobile02)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.EMail)
+            @Html.DisplayNameFor(model => model.URL)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.EMail)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.WebPage)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.WebPage)
+            @Html.DisplayFor(model => model.URL)
         </dd>
 
         <dt>
@@ -88,6 +96,14 @@
 
         <dd>
             @Html.DisplayFor(model => model.Logo)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
         </dd>
 
     </dl>
