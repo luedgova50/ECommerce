@@ -1,5 +1,7 @@
 ﻿namespace WebECommerce.Models
 {
+    using WebECommerce.Models;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,14 +18,17 @@
         public string NameCity { get; set; }
 
         [Required(ErrorMessage = "You must enter a {0}")]
-        [Index("CodeCityIndex", IsUnique = true)]
+        [Index("CodeCity_Index", IsUnique = true)]
         [Display(Name = "Code Postal")]
         public int CodePostalCity { get; set; }
 
         [Required(ErrorMessage = "You must enter a {0}")]
+        [Range(1, double.MaxValue, ErrorMessage = "You must select a {0}")]
         [Display(Name = "State")]
         public int StateId { get; set; }
 
         public virtual State State { get; set; }
+
+        public virtual ICollection<Company> Companies { get; set; }
     }
 }

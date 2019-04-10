@@ -1,35 +1,42 @@
-﻿@model WebECommerce.Models.State
+﻿@model WebECommerce.Models.City
 
 @{
-    ViewBag.Title = "States";
+    ViewBag.Title = "Cities";
 }
 <div>
     <div class="col-mod-8">
-        <h2>Delete State</h2>
+        <h2>Delete City</h2>
         <img src="~/Images/delete.png" height="120" width="120" />
         <h3>Are you sure you want to delete this?</h3>
     </div>
 </div>
-
 <div>
-    <h4>State</h4>
+    <h4>City</h4>
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.NameState)
+            @Html.DisplayNameFor(model => model.State.NameState)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.NameState)
+            @Html.DisplayFor(model => model.State.NameState)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.CodeState)
+            @Html.DisplayNameFor(model => model.NameCity)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.CodeState)
+            @Html.DisplayFor(model => model.NameCity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CodePostalCity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CodePostalCity)
         </dd>
 
     </dl>

@@ -1,5 +1,6 @@
 ﻿namespace ECommerce.Controllers
 {
+    using System;
     using System.Data.Entity;
     using System.Linq;
     using System.Net;
@@ -21,13 +22,17 @@
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(
+                    HttpStatusCode.BadRequest);
             }
-            State state = db.State.Find(id);
+
+            var state = db.State.Find(id);
+
             if (state == null)
             {
                 return HttpNotFound();
             }
+
             return View(state);
         }
 
@@ -38,17 +43,42 @@
         }
 
         // POST: States/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StateId,NameState,CodeState")] State state)
+        public ActionResult Create(State state)
         {
             if (ModelState.IsValid)
             {
                 db.State.Add(state);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
+                try
+                {
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException != null &&
+                                        ex.InnerException.
+                                        InnerException != null &&
+                                        ex.InnerException.
+                                        InnerException.Message.
+                                        Contains("_Index"))
+                    {
+                        ModelState.
+                            AddModelError(
+                            string.Empty,
+                            "You Can't Add a New Record, Because There is Already One");
+                    }
+                    else
+                    {
+                        ModelState.
+                            AddModelError(
+                            string.Empty,
+                            ex.Message);
+                    }
+                }
             }
 
             return View(state);
@@ -59,29 +89,60 @@
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(
+                    HttpStatusCode.BadRequest);
             }
-            State state = db.State.Find(id);
+
+            var state = db.State.Find(id);
+
             if (state == null)
             {
                 return HttpNotFound();
             }
+
             return View(state);
         }
 
         // POST: States/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StateId,NameState,CodeState")] State state)
+        public ActionResult Edit(State state)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(state).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                db.Entry(state).State = 
+                    EntityState.Modified;
+
+                try
+                {
+                    db.SaveChanges();
+
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    if (ex.InnerException != null &&
+                                        ex.InnerException.
+                                        InnerException != null &&
+                                        ex.InnerException.
+                                        InnerException.Message.
+                                        Contains("_Index"))
+                    {
+                        ModelState.
+                            AddModelError(
+                            string.Empty,
+                            "You Can't Add a New Record, Because There is Already One");
+                    }
+                    else
+                    {
+                        ModelState.
+                            AddModelError(
+                            string.Empty,
+                            ex.Message);
+                    }
+                }
             }
+
             return View(state);
         }
 
@@ -90,13 +151,17 @@
         {
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(
+                    HttpStatusCode.BadRequest);
             }
-            State state = db.State.Find(id);
+
+            var state = db.State.Find(id);
+
             if (state == null)
             {
                 return HttpNotFound();
             }
+
             return View(state);
         }
 
@@ -105,10 +170,41 @@
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            State state = db.State.Find(id);
+            var state = db.State.Find(id);
+
             db.State.Remove(state);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+
+            try
+            {
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                if (ex.InnerException != null &&
+                    ex.InnerException.
+                    InnerException != null &&
+                    ex.InnerException.
+                    InnerException.Message.
+                    Contains("REFERENCE"))
+                {
+                    ModelState.
+                        AddModelError(
+                        string.Empty,
+                        "The Selected Record can't be Deleted, "
+                        + " Because it Already Contains Related Records");
+                }
+                else
+                {
+                    ModelState.
+                        AddModelError(
+                        string.Empty,
+                        ex.Message);
+                }
+            }
+
+            return View(state);
         }
 
         protected override void Dispose(bool disposing)
@@ -117,6 +213,7 @@
             {
                 db.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }
